@@ -1,7 +1,7 @@
 import { Application, Request, Response } from "express"
 import { deliveryEmployee } from "../model/deliveryEmployee"
 
-import {createDeliveryEmployee} from "../service/deliveryService"
+import {createDeliveryEmployee, getDeliveryEmployees} from "../service/deliveryService"
 
 export const deliveryController = (app:Application) =>{
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
@@ -21,5 +21,17 @@ export const deliveryController = (app:Application) =>{
 
             res.render('add-delivery-employee', req.body)
         }
+    })
+
+    app.get('/list-delivery-employees', async (req: Request, res: Response) => {
+        let data: deliveryEmployee[]
+
+        try{
+            data = await getDeliveryEmployees();
+        }catch(e){
+            console.error(e);
+        }
+    
+        res.render('list-delivery-employees', { deliveryemployees: data } )
     })
 }
