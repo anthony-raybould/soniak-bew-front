@@ -18,6 +18,11 @@
         <main class="container mt-4">
             <section id="form" class="bg-light py-5">
                 <div class="container">
+                    {% if errormessage %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ errormessage }}
+                    </div>
+                    {% endif %}
                     <p>Enter delivery employee details</p>
                     <form action="/add-delivery-employee" method="post">
                         <div class="form-group">

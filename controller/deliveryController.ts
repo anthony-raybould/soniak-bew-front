@@ -3,7 +3,19 @@ import { deliveryEmployee } from "../model/deliveryEmployee"
 
 import {createDeliveryEmployee, deleteDeliveryEmployee, getDeliveryEmployeeByID, getDeliveryEmployees} from "../service/deliveryService"
 
+const validateAccess = function (req: Request, res: Response, next: Function) {
+    if (req.session.current?.role === 'HR' || req.session.current?.role === 'SUPERUSER') {
+        next();
+    } else {
+        res.redirect('/forbidden');
+    }
+};
+
 export const deliveryController = (app:Application) =>{
+    app.use('/add-delivery-employee', validateAccess);
+    app.use('/list-delivery-employees', validateAccess);
+    app.use('/view-delivery-employee', validateAccess);
+
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
         res.render('add-delivery-employee')
     })
@@ -13,7 +25,7 @@ export const deliveryController = (app:Application) =>{
         let id: Number
 
         try{
-            id = await createDeliveryEmployee(data)
+            id = await createDeliveryEmployee(data, req.session.current?.token)
             res.redirect('/view-delivery-employee/' + id)
         }catch(e){
             console.error(e)
@@ -28,9 +40,11 @@ export const deliveryController = (app:Application) =>{
         let data: deliveryEmployee[]
 
         try{
-            data = await getDeliveryEmployees();
+            data = await getDeliveryEmployees(req.session.current?.token);
         }catch(e){
             console.error(e);
+            
+            res.locals.errormessage = e.message;
         }
     
         res.render('list-delivery-employees', { deliveryemployees: data } )
@@ -40,12 +54,14 @@ export const deliveryController = (app:Application) =>{
         let data: deliveryEmployee
 
         try{
-            const id: number = parseInt(req.params.id, 10)
-            data = await getDeliveryEmployeeByID(id)
 
+            const id: number = parseInt(req.params.id)
+            data = await getDeliveryEmployeeByID(id, req.session.current?.token)
             console.log(data)
         }catch(e){
             console.error(e)
+            
+            res.locals.errormessage = e.message;
         }
 
         res.render('view-delivery-employee', {deliveryEmployee: data })

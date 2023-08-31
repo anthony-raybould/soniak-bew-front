@@ -18,6 +18,11 @@
         <main class="container mt-4">
             <section id="deliveryemployees" class="mt-4">
                 <h2>Our Delivery Employees</h2>
+                {% if errormessage %}
+                <div class="alert alert-danger" role="alert">
+                    {{ errormessage }}
+                </div>
+                {% endif %}
                 {% if deliveryemployees and deliveryemployees.length > 0 %}
                 <table class="table">
                     <thead>

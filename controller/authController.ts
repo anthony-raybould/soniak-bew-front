@@ -1,5 +1,5 @@
 import { Application, Request, Response } from "express"
-import { Credentials, User } from "../model/auth"
+import { ActiveSession, Credentials, User } from "../model/auth"
 
 import { login, register } from "../service/authService"
 
@@ -12,9 +12,9 @@ export const authController = (app:Application) =>{
         let data: Credentials = req.body;
 
         try {
-            let token = await login(data)
+            let activeSession: ActiveSession = await login(data);
 
-            req.session.token = token;
+            req.session.current = activeSession;
 
             res.redirect('/');
         } catch (e) {
