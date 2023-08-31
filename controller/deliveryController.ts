@@ -3,7 +3,7 @@ import { deliveryEmployee } from "../model/deliveryEmployee"
 
 const deliveryService = require('../service/deliveryService')
 
-module.exports = function(app:Application){
+export const deliveryController = (app:Application) =>{
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
         res.render('add-delivery-employee')
     })
