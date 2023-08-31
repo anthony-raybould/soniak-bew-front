@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Add sales employee</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header class="bg-dark text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Add sales employee</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container mt-4">
+            <section id="form" class="bg-light py-5">
+                <div class="container">
+                    {% if errormessage %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ errormessage }}
+                    </div>
+                    {% endif %}
+                    <form action="/add-salesemployee-confirmation" method="post">
+                        <div class="form-group">
+                            <label for="name">Name: {{ name }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="salary">Salary {{ salary }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="bankAccountNumber">Bank Account Number: {{ bankAccountNumber }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="niNumber">National Insurance Number: {{ niNumber }}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="commissionRate">Commission Rate: {{ commissionRate }}</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

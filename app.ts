@@ -4,6 +4,7 @@ import nunjucks from 'nunjucks';
 import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { salesemployeeController } from './controller/salesemployeeController';
+import { SalesEmployee } from './model/salesemployee';
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 6000
 declare module "express-session" {
     interface SessionData {
         token : string
+        salesemployee: SalesEmployee
     }
 }
 
