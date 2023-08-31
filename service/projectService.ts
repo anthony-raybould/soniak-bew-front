@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Project } from "../model/project";
+import type { Project } from "../model/project";
 
 export const getProjects =  async function(token : string) : Promise<Project[]> {
 

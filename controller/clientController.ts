@@ -1,11 +1,10 @@
-import { Application, Request, Response } from "express";
-import { AssignClient } from "../model/assignClient";
-import { Client } from "../model/client";
+import type { Application, Request, Response } from "express";
+import type { AssignClient } from "../model/assignClient";
+import type { Client } from "../model/client";
 
 import { assignClient, getClients } from "../service/clientService";
 import { getProjects } from "../service/projectService";
-import { Project } from "../model/project";
-import session from "express-session";
+import type { Project } from "../model/project";
 
 export const clientController = function(app : Application) {
 
@@ -13,10 +12,8 @@ export const clientController = function(app : Application) {
 
         try {
 
-            let clients : Client[];
-            let projects : Project[];
-            clients = await getClients(req.session.token);
-            projects =  await getProjects(req.session.token);
+            let clients : Client[] = await getClients(req.session.token);
+            let projects : Project[] =  await getProjects(req.session.token);
 
             res.render("assign-client-project", {
                 clients : clients,
@@ -47,10 +44,8 @@ export const clientController = function(app : Application) {
             res.locals.errormessage = e.message;
 
             try {
-                let clients : Client[];
-                let projects : Project[];
-                clients = await getClients(req.session.token);
-                projects =  await getProjects(req.session.token);
+                let clients : Client[] = await getClients(req.session.token);;
+                let projects : Project[] =  await getProjects(req.session.token);;
 
                 res.render("assign-client-project", {
                     clients : clients,
