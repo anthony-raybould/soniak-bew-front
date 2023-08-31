@@ -7,6 +7,7 @@ import { authController } from './controller/authController';
 import { salesemployeeController } from './controller/salesemployeeController';
 import authMiddleware from './middleware/auth';
 import { ActiveSession } from './model/auth';
+import { clientController } from './controller/clientController';
 
 const app = express();
 
@@ -51,7 +52,7 @@ app.use(authMiddleware);
 
 deliveryController(app);
 salesemployeeController(app)
-
+clientController(app);
 app.get('/', (req: Request, res: Response) => {
     res.render('index', { username : req.session.current?.username });
 });
