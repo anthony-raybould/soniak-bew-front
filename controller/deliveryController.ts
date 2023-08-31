@@ -71,7 +71,8 @@ export const deliveryController = (app:Application) =>{
         let data: deliveryEmployee[]
 
         try{
-            data = await getDeliveryEmployees();
+            const id = parseInt(req.params.id)
+            data = await getDeliveryEmployees(req.session.current?.token);
         }catch(e){
             console.error(e);
         }
