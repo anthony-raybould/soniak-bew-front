@@ -1,9 +1,9 @@
 import { SalesEmployee } from "../model/salesemployee";
+import axios from 'axios'
 
-const axios = require('axios');
 
 
-module.exports.getSalesEmployees = async function (): Promise<SalesEmployee[]> {
+export const getSalesEmployees = async function (): Promise<SalesEmployee[]> {
     try {
         const response = await axios.get('http://localhost:8080/api/salesemployee')
         return response.data

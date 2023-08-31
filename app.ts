@@ -3,6 +3,7 @@ import express, { Express, Request, Response } from 'express';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import { deliveryController } from './controller/deliveryController';
+import { salesemployeeController } from './controller/salesemployeeController';
 
 const app = express();
 
@@ -38,7 +39,8 @@ app.listen(3000, () => {
 });
 
 
-require('./controller/salesemployeeController')(app);
+
 
 deliveryController(app);
 
+salesemployeeController(app)
