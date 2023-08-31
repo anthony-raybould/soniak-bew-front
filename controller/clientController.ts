@@ -74,8 +74,7 @@ export const clientController = function(app : Application) {
 
         try {
 
-            let clients : Client[];
-            clients = await getClients(req.session.token);
+            let clients : Client[] = await getClients(req.session.token);
 
             res.render("list-clients", {
                 clients : clients,
