@@ -2,6 +2,7 @@ import expressSession from 'express-session';
 import express, { Express, Request, Response } from 'express';
 import nunjucks from 'nunjucks';
 import path from 'path';
+import { clientController } from './controller/clientController';
 
 const app = express();
 
@@ -35,3 +36,5 @@ declare module "express-session" {
 app.listen(3000, () => {
     console.log("Server listening on port 3000");
 });
+
+clientController(app);
