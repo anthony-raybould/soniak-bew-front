@@ -11,3 +11,13 @@ export const createDeliveryEmployee = async function(deliveryEmployee: deliveryE
         throw new Error('Could not create delivery employee')
     }
 }
+
+export const getDeliveryEmployees = async function(): Promise<deliveryEmployee[]>{
+    try{
+        const response = await axios.get('http://localhost:8080/api/deliveryemployee')
+
+        return response.data
+    }catch(e){
+        throw new Error('Could not get delivery employees')
+    }
+}
