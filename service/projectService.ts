@@ -1,10 +1,10 @@
 import axios from "axios";
 import { Project } from "../model/project";
 
-export const getProjects =  async function() : Promise<Project[]> {
+export const getProjects =  async function(token : string) : Promise<Project[]> {
 
     try {
-        const response = await axios.get("http://localhost:8080/api/project");
+        const response = await axios.get(`http://localhost:8080/api/project?token=${token}`);
 
         return response.data;
 
@@ -13,10 +13,10 @@ export const getProjects =  async function() : Promise<Project[]> {
     }
 }
 
-export const getProjectById = async function(projectId : number) : Promise<Project> {
+export const getProjectById = async function(projectId : number, token : string) : Promise<Project> {
 
     try {
-        const response = await axios.get(`http://localhost:8080/api/project/${projectId}`);
+        const response = await axios.get(`http://localhost:8080/api/project/${projectId}?token=${token}`);
 
         return response.data;
 
@@ -26,10 +26,10 @@ export const getProjectById = async function(projectId : number) : Promise<Proje
     }
 }
 
-export const updateProject = async function (project : Project) : Promise<number> {
+export const updateProject = async function (project : Project, token : string) : Promise<void> {
 
     try {
-        const response = await axios.post("http://localhost:8080/api/project/", project);
+        const response = await axios.post(`http://localhost:8080/api/project?token=${token}`, project);
         return response.data;
 
     } catch (e) {

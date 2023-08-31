@@ -3,11 +3,12 @@ import { Client } from "../model/client";
 import { AssignClient } from "../model/assignClient";
 import { getProjectById, updateProject } from "./projectService";
 import { Project } from "../model/project";
+import session from "express-session";
 
-export const getClients =  async function() : Promise<Client[]> {
+export const getClients =  async function(token : string) : Promise<Client[]> {
 
     try {
-        const response = await axios.get("http://localhost:8080/api/client");
+        const response = await axios.get(`http://localhost:8080/api/client?token=${token}`);
 
         return response.data;
 
@@ -16,15 +17,15 @@ export const getClients =  async function() : Promise<Client[]> {
     }
 }
 
-export const assignClient = async function (assigment : AssignClient) : Promise<void> {
+export const assignClient = async function (assigment : AssignClient, token : string) : Promise<void> {
 
     try {
         let project : Project;
-        project = await getProjectById(assigment.projectId);
+        project = await getProjectById(assigment.projectId, token);
 
         // Updates the project with the new clientID.
         project.clientId = assigment.clientId;
-        updateProject(project);
+        await updateProject(project, token);
 
     } catch (e) {
         console.error(e);

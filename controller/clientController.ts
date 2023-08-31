@@ -5,16 +5,18 @@ import { Client } from "../model/client";
 import { assignClient, getClients } from "../service/clientService";
 import { getProjects } from "../service/projectService";
 import { Project } from "../model/project";
+import session from "express-session";
 
 export const clientController = function(app : Application) {
 
     app.get("/client/assign-project", async (req : Request, res : Response) => {
 
         try {
+
             let clients : Client[];
             let projects : Project[];
-            clients = await getClients();
-            projects =  await getProjects();
+            clients = await getClients(req.session.token);
+            projects =  await getProjects(req.session.token);
 
             res.render("assign-client-project", {
                 clients : clients,
@@ -36,7 +38,7 @@ export const clientController = function(app : Application) {
 
         try {
 
-            await assignClient(data);
+            await assignClient(data, req.session.token);
             res.redirect("/client/assign-project-success");
 
         } catch (e) {
@@ -47,8 +49,8 @@ export const clientController = function(app : Application) {
             try {
                 let clients : Client[];
                 let projects : Project[];
-                clients = await getClients();
-                projects =  await getProjects();
+                clients = await getClients(req.session.token);
+                projects =  await getProjects(req.session.token);
 
                 res.render("assign-client-project", {
                     clients : clients,
