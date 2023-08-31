@@ -1,9 +1,9 @@
-export class Credentials {
+export type Credentials = {
     username: string;
     password: string;
 }
 
-export class User {
+export type User = {
     username: string;
     password: string;
     role: string;
