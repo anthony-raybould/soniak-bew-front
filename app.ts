@@ -5,6 +5,8 @@ import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { authController } from './controller/authController';
 import { salesemployeeController } from './controller/salesemployeeController';
+import authMiddleware from './middleware/auth';
+import { ActiveSession } from './model/auth';
 import { clientController } from './controller/clientController';
 
 const app = express();
@@ -32,7 +34,7 @@ app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 6000
 
 declare module "express-session" {
     interface SessionData {
-        token : string
+        current?: ActiveSession;
     }
 }
 
@@ -41,9 +43,16 @@ app.listen(3000, () => {
 });
 
 authController(app);
+app.get('/forbidden', (req: Request, res: Response) => {
+    res.render('forbidden', { username : req.session.current?.username });
+});
+
+
+app.use(authMiddleware);
+
 deliveryController(app);
 salesemployeeController(app)
 clientController(app);
 app.get('/', (req: Request, res: Response) => {
-    res.render('index');
+    res.render('index', { username : req.session.current?.username });
 });
