@@ -2,7 +2,7 @@ import type { Application, Request, Response } from "express";
 import type { AssignClient } from "../model/assignClient";
 import type { Client } from "../model/client";
 
-import { assignClient, getClients } from "../service/clientService";
+import { assignClient, getClients, getHighestValueClient } from "../service/clientService";
 import { getProjects } from "../service/projectService";
 import type { Project } from "../model/project";
 
@@ -74,7 +74,7 @@ export const clientController = function(app : Application) {
 
         try {
 
-            let clients : Client[] = await getClients(req.session.current?.token);
+            let clients : Client[] = await getClients(req.session.current.token);
 
             res.render("list-clients", {
                 clients : clients,
@@ -86,6 +86,25 @@ export const clientController = function(app : Application) {
 
             res.locals.errormessage = "A problem occurred generating this page.";
             res.render("list-clients");
+        }
+    });
+
+    app.get("/client/highest-value", async (req : Request, res : Response) => {
+
+        try {
+
+            let highestValueClient : string = await getHighestValueClient(req.session.current.token);
+
+            res.render("highest-value-client", {
+                highestValueClient : highestValueClient
+            });
+
+        } catch (e) {
+            console.error(e);
+
+
+            res.locals.errormessage = "A problem occurred generating this page.";
+            res.render("highest-value-client");
         }
     });
 }
