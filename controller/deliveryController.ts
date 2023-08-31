@@ -1,7 +1,7 @@
 import { Application, Request, Response } from "express"
 import { deliveryEmployee } from "../model/deliveryEmployee"
 
-import {createDeliveryEmployee, getDeliveryEmployeeByID, getDeliveryEmployees} from "../service/deliveryService"
+import {createDeliveryEmployee, deleteDeliveryEmployee, getDeliveryEmployeeByID, getDeliveryEmployees} from "../service/deliveryService"
 
 const validateAccess = function (req: Request, res: Response, next: Function) {
     if (req.session.current?.role === 'HR' || req.session.current?.role === 'SUPERUSER') {
@@ -54,9 +54,9 @@ export const deliveryController = (app:Application) =>{
         let data: deliveryEmployee
 
         try{
+
             const id: number = parseInt(req.params.id)
             data = await getDeliveryEmployeeByID(id, req.session.current?.token)
-
             console.log(data)
         }catch(e){
             console.error(e)
@@ -65,5 +65,30 @@ export const deliveryController = (app:Application) =>{
         }
 
         res.render('view-delivery-employee', {deliveryEmployee: data })
+    })
+
+    app.get('/delete-delivery-employee', async (req:Request, res: Response) => {
+        let data: deliveryEmployee[]
+
+        try{
+            const id = parseInt(req.params.id)
+            data = await getDeliveryEmployees(req.session.current?.token);
+        }catch(e){
+            console.error(e);
+        }
+        res.render('delete-delivery-employee', { deliveryemployees: data })
+    })
+
+    app.post('/delete-delivery-employee', async(req:Request, res:Response) => {
+        const id: number = parseInt(req.body.employeeId, 10);
+
+        try{
+            await deleteDeliveryEmployee(id, req.session.current?.token);
+
+            res.redirect('/delete-delivery-employee/')
+
+        }catch(e){
+            console.error(e)
+        }
     })
 }
