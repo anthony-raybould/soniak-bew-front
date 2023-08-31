@@ -1,6 +1,6 @@
 import { Application, Request, Response } from "express";
 import { SalesEmployee } from "../model/salesemployee"; 
-import { getSalesEmployees } from "../service/salesemployeeService";
+import { createSalesEmployee, getSalesEmployees } from "../service/salesemployeeService";
 import { getSalesEmployeeById } from "../service/salesemployeeService";
 
 const salesemployeeService = require('../service/salesemployeeService')
@@ -12,7 +12,7 @@ export const salesemployeeController = (app: Application) => {
         let data: SalesEmployee[]
 
         try {
-            data = await getSalesEmployees()
+            data = await getSalesEmployees(req.session.current?.token)
         } catch (e) {
             console.error(e);
         }
@@ -25,7 +25,7 @@ export const salesemployeeController = (app: Application) => {
 
         try {
             const id: number = parseInt(req.params.id)
-            data = await getSalesEmployeeById(id) 
+            data = await getSalesEmployeeById(id, req.session.current?.token) 
         } catch (e) {
             console.error(e);
         }
@@ -71,7 +71,7 @@ export const salesemployeeController = (app: Application) => {
         let id: Number
 
         try {
-            id = await salesemployeeService.createSalesEmployee(data, req.session.token)
+            id = await createSalesEmployee(data, req.session.current?.token)
 
             req.session.salesemployee = undefined
             res.redirect('/view-salesemployee/' + id) 
