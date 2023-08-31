@@ -1,9 +1,8 @@
 import axios from "axios";
-import { Client } from "../model/client";
-import { AssignClient } from "../model/assignClient";
+import type { Client } from "../model/client";
+import type { AssignClient } from "../model/assignClient";
 import { getProjectById, updateProject } from "./projectService";
-import { Project } from "../model/project";
-import session from "express-session";
+import type { Project } from "../model/project";
 
 export const getClients =  async function(token : string) : Promise<Client[]> {
 

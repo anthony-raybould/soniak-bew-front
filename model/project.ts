@@ -1,4 +1,4 @@
-export class Project {
+export type Project = {
     projectId : number
     name : string
     value : number
