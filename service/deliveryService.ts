@@ -1,8 +1,8 @@
 import { deliveryEmployee } from "../model/deliveryEmployee";
 
-const axios = require('axios');
+import axios from 'axios'
 
-module.exports.createDeliveryEmployee = async function(deliveryEmployee: deliveryEmployee): Promise<number>{
+export const createDeliveryEmployee = async function(deliveryEmployee: deliveryEmployee): Promise<number>{
     try{
         const response = await axios.post('http://localhost:8080/api/deliveryemployee/', deliveryEmployee)
 

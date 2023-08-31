@@ -1,7 +1,7 @@
 import { Application, Request, Response } from "express"
 import { deliveryEmployee } from "../model/deliveryEmployee"
 
-const deliveryService = require('../service/deliveryService')
+import {createDeliveryEmployee} from "../service/deliveryService"
 
 export const deliveryController = (app:Application) =>{
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
@@ -13,7 +13,7 @@ export const deliveryController = (app:Application) =>{
         let id: Number
 
         try{
-            id = await deliveryService.createDeliveryEmployee(data)
+            id = await createDeliveryEmployee(data)
         }catch(e){
             console.error(e)
 
