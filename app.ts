@@ -5,6 +5,7 @@ import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { authController } from './controller/authController';
 import { salesemployeeController } from './controller/salesemployeeController';
+import type { SalesEmployee } from './model/salesemployee';
 import authMiddleware from './middleware/auth';
 import { ActiveSession } from './model/auth';
 import { clientController } from './controller/clientController';
@@ -34,6 +35,7 @@ app.use(expressSession({secret : "NOT HARDCODED SECRET", cookie : {maxAge : 6000
 
 declare module "express-session" {
     interface SessionData {
+        salesemployee: SalesEmployee
         current?: ActiveSession;
     }
 }
