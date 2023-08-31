@@ -43,7 +43,7 @@
 
                                 <div class="form-group">
                                     <label for="projectId">Project:</label>
-                                    <select id="projecttId" name="projectId" class="form-control" required>
+                                    <select id="projectId" name="projectId" class="form-control" required>
                                         {% for project in projects %}
                                             <option value="{{ project.projectId }}"
                                             {% if project.projectId == form.projectId %}
@@ -54,7 +54,7 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Submit Assignment</button>
+                                <button type="submit" class="btn btn-dark">Submit Assignment</button>
                             </form>
                         {% else %}
                             <h5>No projects exist to assign a client to.</h5>
