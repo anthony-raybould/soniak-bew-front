@@ -1,6 +1,7 @@
 import { SalesEmployee } from "../model/salesemployee";
 import axios from 'axios'
 
+import {validateSalesEmployee} from "../validator/salesemployeeValidator";
 
 
 export const getSalesEmployees = async function (): Promise<SalesEmployee[]> {
@@ -23,6 +24,12 @@ export const getSalesEmployeeById = async function (id: number): Promise<SalesEm
 }
 
 export const createSalesEmployee = async function(salesEmployee: SalesEmployee): Promise<number>{
+    const error: string = validateSalesEmployee(salesEmployee)
+
+    if (error) {
+        throw new Error(error)
+    }
+
     try{
         const response = await axios.post('http://localhost:8080/api/salesemployee', salesEmployee)
 

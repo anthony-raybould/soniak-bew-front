@@ -4,7 +4,7 @@ import nunjucks from 'nunjucks';
 import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { salesemployeeController } from './controller/salesemployeeController';
-import { SalesEmployee } from './model/salesemployee';
+import type { SalesEmployee } from './model/salesemployee';
 
 const app = express();
 
