@@ -16,7 +16,7 @@ export const authController = (app:Application) =>{
 
             req.session.token = token;
 
-            res.redirect('/'); //TODO redirect somewhere useful
+            res.redirect('/');
         } catch (e) {
             console.error(e);
 
