@@ -3,7 +3,19 @@ import { deliveryEmployee } from "../model/deliveryEmployee"
 
 import {createDeliveryEmployee, getDeliveryEmployeeByID, getDeliveryEmployees} from "../service/deliveryService"
 
+const validateAccess = function (req: Request, res: Response, next: Function) {
+    if (req.session.current?.role === 'HR' || req.session.current?.role === 'SUPERUSER') {
+        next();
+    } else {
+        res.redirect('/forbidden');
+    }
+};
+
 export const deliveryController = (app:Application) =>{
+    app.use('/add-delivery-employee', validateAccess);
+    app.use('/list-delivery-employees', validateAccess);
+    app.use('/view-delivery-employee', validateAccess);
+
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
         res.render('add-delivery-employee')
     })

@@ -42,6 +42,10 @@ app.listen(3000, () => {
 });
 
 authController(app);
+app.get('/forbidden', (req: Request, res: Response) => {
+    res.render('forbidden', { username : req.session.current?.username });
+});
+
 
 app.use(authMiddleware);
 
