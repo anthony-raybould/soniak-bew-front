@@ -1,7 +1,7 @@
 import { Application, Request, Response } from "express"
 import { deliveryEmployee } from "../model/deliveryEmployee"
 
-import {createDeliveryEmployee, getDeliveryEmployees} from "../service/deliveryService"
+import {createDeliveryEmployee, getDeliveryEmployeeByID, getDeliveryEmployees} from "../service/deliveryService"
 
 export const deliveryController = (app:Application) =>{
     app.get('/add-delivery-employee', async (req:Request, res: Response) => {
@@ -14,6 +14,7 @@ export const deliveryController = (app:Application) =>{
 
         try{
             id = await createDeliveryEmployee(data)
+            res.redirect('/view-delivery-employee/' + id)
         }catch(e){
             console.error(e)
 
@@ -33,5 +34,20 @@ export const deliveryController = (app:Application) =>{
         }
     
         res.render('list-delivery-employees', { deliveryemployees: data } )
+    })
+
+    app.get('/view-delivery-employee/:id', async (req: Request, res: Response) => {
+        let data: deliveryEmployee
+
+        try{
+            const id: number = parseInt(req.params.id)
+            data = await getDeliveryEmployeeByID(id)
+
+            console.log(data)
+        }catch(e){
+            console.error(e)
+        }
+
+        res.render('view-delivery-employee', {deliveryEmployee: data })
     })
 }
