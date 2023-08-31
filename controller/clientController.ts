@@ -12,8 +12,8 @@ export const clientController = function(app : Application) {
 
         try {
 
-            let clients : Client[] = await getClients(req.session.token);
-            let projects : Project[] =  await getProjects(req.session.token);
+            let clients : Client[] = await getClients(req.session.current?.token);
+            let projects : Project[] =  await getProjects(req.session.current?.token);
 
             res.render("assign-client-project", {
                 clients : clients,
@@ -35,7 +35,7 @@ export const clientController = function(app : Application) {
 
         try {
 
-            await assignClient(data, req.session.token);
+            await assignClient(data, req.session.current?.token);
             res.redirect("/client/assign-project-success");
 
         } catch (e) {
@@ -44,8 +44,8 @@ export const clientController = function(app : Application) {
             res.locals.errormessage = e.message;
 
             try {
-                let clients : Client[] = await getClients(req.session.token);;
-                let projects : Project[] =  await getProjects(req.session.token);;
+                let clients : Client[] = await getClients(req.session.current?.token);;
+                let projects : Project[] =  await getProjects(req.session.current?.token);;
 
                 res.render("assign-client-project", {
                     clients : clients,
