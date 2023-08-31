@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Clients</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <header class="bg-dark text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Clients</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mt-4">
+            <section id="clientsList" class="mt-4">
+                {% if errormessage %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ errormessage }}
+                    </div>
+                {% endif %}
+                {% if clients and clients.length > 0 %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Client Name</th>
+                            <th scope="col">Assigned Sales Employee</th>
+                            <th scope="col">Projects</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients %}
+                        <tr>
+                            <td>{{ client.clientName }}</td>
+                            <td>{{ client.salesEmployeeName }}</td>
+                            <td>
+                                {% if client.projects %}
+                                    {{ client.projects }}
+                                {% else %}
+                                    No projects
+                                {% endif%}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                There are no clients.
+                {% endif %}
+            </section>
+        </main>
+    </body>
+</html>

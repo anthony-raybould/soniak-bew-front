@@ -17,6 +17,11 @@
         </header>
         <main class="container mt-4"> 
             <section id="deliveryEmployee" class="mt-4">
+                {% if errormessage %}
+                <div class="alert alert-danger" role="alert">
+                    {{ errormessage }}
+                </div>
+                {% endif %}
               {% if deliveryEmployee %}
                  <h2>Name</h2>
                  {{  deliveryEmployee.name }}
