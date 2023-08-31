@@ -24,7 +24,7 @@
                             <label for="name">Name</label>
                             <select id="name" name="employeeId" class="form-control" required>
                                 {% for deliveryemployee in deliveryemployees %}
-                                    <option value="{{ deliveryemployee.employeeId }}">{{ deliveryemployee.name }}</option>
+                                    <option value="{{ deliveryemployee.employeeID }}">{{ deliveryemployee.name }}</option>
                                 {% endfor %}
                             </select>
                         <button type="submit" class="btn btn-primary">Submit</button>

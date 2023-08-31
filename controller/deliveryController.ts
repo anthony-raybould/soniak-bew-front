@@ -80,10 +80,10 @@ export const deliveryController = (app:Application) =>{
     })
 
     app.post('/delete-delivery-employee', async(req:Request, res:Response) => {
-        const id: number = parseInt(req.params.id, 10);
+        const id: number = parseInt(req.body.employeeId, 10);
 
         try{
-            await deleteDeliveryEmployee(id);
+            await deleteDeliveryEmployee(id, req.session.current?.token);
 
             res.redirect('/delete-delivery-employee/')
 

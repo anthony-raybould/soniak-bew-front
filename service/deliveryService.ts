@@ -44,9 +44,9 @@ export const getDeliveryEmployeeByID = async function (id: number, token: string
     }
 }
 
-export const deleteDeliveryEmployee = async function(id:number): Promise<void>{
+export const deleteDeliveryEmployee = async function(id:number, token:string): Promise<void>{
     try{
-        const response = await axios.delete('http://localhost:8080/api/deliveryemployee/' + id)
+        const response = await axios.delete('http://localhost:8080/api/deliveryemployee/' + id, {params: { token:token }})
         console.log(response.data); // Log the response data for debugging
 
     }catch(e){
