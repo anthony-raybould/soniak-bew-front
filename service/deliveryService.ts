@@ -31,3 +31,13 @@ export const getDeliveryEmployeeByID = async function(id:number): Promise<delive
         throw new Error('Could not get delivery employee')
     }
 }
+
+export const deleteDeliveryEmployee = async function(id:number): Promise<void>{
+    try{
+        const response = await axios.delete('http://localhost:8080/api/deliveryemployee/' + id)
+        console.log(response.data); // Log the response data for debugging
+
+    }catch(e){
+        throw new Error('Could not delete delivery employee')
+    }
+}
