@@ -5,6 +5,7 @@ import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { authController } from './controller/authController';
 import { salesemployeeController } from './controller/salesemployeeController';
+import authMiddleware from './middleware/auth';
 
 const app = express();
 
@@ -40,6 +41,9 @@ app.listen(3000, () => {
 });
 
 authController(app);
+
+app.use(authMiddleware);
+
 deliveryController(app);
 salesemployeeController(app)
 

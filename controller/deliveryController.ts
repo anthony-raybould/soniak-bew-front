@@ -13,7 +13,7 @@ export const deliveryController = (app:Application) =>{
         let id: Number
 
         try{
-            id = await createDeliveryEmployee(data)
+            id = await createDeliveryEmployee(data, req.session.token)
             res.redirect('/view-delivery-employee/' + id)
         }catch(e){
             console.error(e)
@@ -28,9 +28,11 @@ export const deliveryController = (app:Application) =>{
         let data: deliveryEmployee[]
 
         try{
-            data = await getDeliveryEmployees();
+            data = await getDeliveryEmployees(req.session.token);
         }catch(e){
             console.error(e);
+            
+            res.locals.errormessage = e.message;
         }
     
         res.render('list-delivery-employees', { deliveryemployees: data } )
@@ -41,11 +43,13 @@ export const deliveryController = (app:Application) =>{
 
         try{
             const id: number = parseInt(req.params.id)
-            data = await getDeliveryEmployeeByID(id)
+            data = await getDeliveryEmployeeByID(id, req.session.token)
 
             console.log(data)
         }catch(e){
             console.error(e)
+            
+            res.locals.errormessage = e.message;
         }
 
         res.render('view-delivery-employee', {deliveryEmployee: data })
