@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{{ salesemployee.name }}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <header class="bg-dark text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>{{ salesemployee.name }}</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="container mt-4">
+            <section id="salesemployee" class="mt-4">
+              {% if salesemployee %}
+                <h2>Name</h2>
+                {{  salesemployee.name }}
+                 <h2>Salary</h2>
+                 {{  salesemployee.salary }}
+                 <h2>Bank Account Number</h2>
+                 {{ salesemployee.bankAccountNumber }}
+                 <h2>National Insurance Number</h2>
+                 {{ salesemployee.niNumber }}
+                 <h2>Commission Rate</h2>
+                 {{ salesemployee.commissionRate }}
+                {% else %}
+                  Could not find sales employee.
+                {% endif %}
+            </section>
+        </main>
+    </body>
+</html>
