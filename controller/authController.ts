@@ -45,4 +45,14 @@ export const authController = (app:Application) =>{
             res.render('register', req.body);
         }
     });
+    
+    app.get('/logout', async (req: Request, res: Response) => {
+        req.session.destroy((e) => {
+            if (e) {
+                console.log(e)
+            }
+
+            res.redirect('/');
+        });
+    });
 }
