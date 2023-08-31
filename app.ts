@@ -5,6 +5,7 @@ import path from 'path';
 import { deliveryController } from './controller/deliveryController';
 import { authController } from './controller/authController';
 import { salesemployeeController } from './controller/salesemployeeController';
+import { clientController } from './controller/clientController';
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.listen(3000, () => {
 authController(app);
 deliveryController(app);
 salesemployeeController(app)
-
+clientController(app);
 app.get('/', (req: Request, res: Response) => {
     res.render('index');
 });
