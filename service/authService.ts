@@ -1,8 +1,8 @@
-import { Credentials, User } from "../model/auth";
+import { ActiveSession, Credentials, User } from "../model/auth";
 
 import axios from 'axios'
 
-export const login = async function(credentials: Credentials): Promise<string> {
+export const login = async function(credentials: Credentials): Promise<ActiveSession> {
     try {
         const response = await axios.post('http://localhost:8080/api/login/', credentials);
 

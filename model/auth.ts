@@ -8,3 +8,9 @@ export type User = {
     password: string;
     role: string;
 }
+
+export type ActiveSession = {
+    token: string;
+    username: string;
+    role: string;
+}

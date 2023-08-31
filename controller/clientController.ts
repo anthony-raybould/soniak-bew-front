@@ -70,14 +70,30 @@ export const clientController = function(app : Application) {
         res.render("assign-client-project-success");
     });
 
+    app.get("/client", async (req : Request, res : Response) => {
+
+        try {
+
+            let clients : Client[] = await getClients(req.session.current.token);
+
+            res.render("list-clients", {
+                clients : clients,
+            });
+
+        } catch (e) {
+            console.error(e);
+
+
+            res.locals.errormessage = "A problem occurred generating this page.";
+            res.render("list-clients");
+        }
+    });
+
     app.get("/client/highest-value", async (req : Request, res : Response) => {
 
         try {
 
-            let clients : Client[] = await getClients(req.session.token);
-            let projects : Project[] =  await getProjects(req.session.token);
-
-            let highestValueClient : string = await getHighestValueClient(req.session.token);
+            let highestValueClient : string = await getHighestValueClient(req.session.current.token);
 
             res.render("highest-value-client", {
                 highestValueClient : highestValueClient
