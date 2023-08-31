@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Highest Value Client</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <header class="bg-dark text-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Highest Value Client</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <main class="container mt-4">
+            <section id="form" class="bg-light py-5">
+                <div class="container">
+                    {% if highestValueClient %}
+                        <h5>The highest value client is: {{ highestValueClient }}</h5>
+                    {% else %}
+                        <h5>There are no clients with projects (hence no highest value client).</h5>
+                    {% endif %} 
+            </section>
+        </main>
+    </body>
+</html>

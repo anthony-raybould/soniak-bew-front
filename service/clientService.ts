@@ -31,3 +31,15 @@ export const assignClient = async function (assigment : AssignClient, token : st
         throw new Error("Could not assign client to project.");
     }
 }
+
+export const getHighestValueClient =  async function(token : string) : Promise<string> {
+
+    try {
+        const response = await axios.get(`http://localhost:8080/api/client/highestvalue?token=${token}`);
+
+        return response.data;
+
+    } catch (e) {
+        throw new Error("Could not get highest value client.");
+    }
+}
